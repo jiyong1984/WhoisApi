@@ -19,7 +19,7 @@ def whois_requests(target):
     #excel work book
     wb = openpyxl.Workbook()
     sheet1 = wb.active
-    sheet1.append(["IP","countryCode", "country"])
+    sheet1.append(["IP","countryCode", "country", "orgName"])
     rownum=2
     colnum=1
     try:
@@ -34,6 +34,8 @@ def whois_requests(target):
             sheet1.cell(row=rownum, column=colnum).value =line_sp[0]
             sheet1.cell(row=rownum, column=colnum+1).value =response["whois"]["countryCode"]
             sheet1.cell(row=rownum, column=colnum+2).value =countryCode_Dic[response["whois"]["countryCode"]]
+            if response["whois"]["countryCode"] =='KR':
+                sheet1.cell(row=rownum, column=colnum+3).value =response["whois"]["korean"]["ISP"]["netinfo"]["orgName"]
             #raw_data[lownum] =[response["whois"]["query"],response["whois"]["countryCode"],countryCode_Dic[response["whois"]["countryCode"]]]
             rownum =rownum+1
 
